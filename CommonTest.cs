@@ -13,6 +13,13 @@ namespace Safetica_nUnit
 {
     public static class CommonTest
     {
+        public static void Setup(string test)
+        {
+            Log.Setup();
+            Log.LogThis("Executing " + test);
+        }
+
+
         public static void StartChromeDriver()
         {
             Driver.driver = new ChromeDriver();
@@ -183,7 +190,7 @@ namespace Safetica_nUnit
             IWebElement attachmentSendButton = Driver.driver.FindElement(By.XPath(Config.xpath_attachment_send));
             attachmentSendButton.Click();
 
-
+            Log.LogThis("succesfully attached");
         }
 
         public static void Logout()

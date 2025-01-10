@@ -12,11 +12,34 @@ namespace Safetica_nUnit
     [TestFixture] 
     public class TeamsChromeTest()
     {
+        [Test]
+        public void Test()
+        {
+            CommonTest.Setup("Test");
+            Log.LogThis("test");
+            Thread.Sleep(1000);
+            Log.LogThis("test2");
+            Log.LogThis("test3");
+        }
+
+
         [Test] 
         public void Attach1FileFromOnedrive()
         {
+            CommonTest.Setup("Attach1FileFromOnedrive");
             CommonTest.StartChromeDriver();
+
+            try
+            {
             CommonTest.Login();
+                Log.LogThis("login succesful");
+            }
+            catch (Exception e)
+            {
+                Log.LogThis("login failed");
+                Log.LogThis(e.Message);
+            }
+            
             CommonTest.SwichChat();
 
             CommonTest.Attach(1);

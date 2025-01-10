@@ -14,6 +14,12 @@ namespace Safetica_nUnit
         public static string email = "qa@safeticaservices.onmicrosoft.com";
         public static string password = "automation.Safetica2004";
 
+        //log
+        public static string thisDir = Directory.GetCurrentDirectory();
+        public static string parentDir = Path.GetDirectoryName(Config.thisDir.TrimEnd(Path.DirectorySeparatorChar));
+        public static string logDir = Config.parentDir + "\\logs";
+
+
         //login xpaths
         public static string xpath_email = "/html/body/div/form[1]/div/div/div[2]/div[1]/div/div/div/div/div[1]/div[3]/div/div/div/div[2]/div[2]/div/input[1]";
         public static string xpath_next = "/html/body/div/form[1]/div/div/div[2]/div[1]/div/div/div/div/div[1]/div[3]/div/div/div/div[4]/div/div/div/div/input";
