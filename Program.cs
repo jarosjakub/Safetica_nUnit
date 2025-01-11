@@ -1,9 +1,11 @@
 using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using Safetica_nUnit;
 using System;
+using System.Reflection;
 using static OpenQA.Selenium.BiDi.Modules.BrowsingContext.Locator;
 using Action = Safetica_nUnit.CommonTest;
 
@@ -12,83 +14,92 @@ namespace Safetica_nUnit
     [TestFixture] 
     public class TeamsChromeTest()
     {
-        [Test]
-        public void Test()
+        [SetUp]
+        public void SetUp()
         {
-            CommonTest.Setup("Test");
-            Log.LogThis("test");
-            Thread.Sleep(1000);
-            Log.LogThis("test2");
-            Log.LogThis("test3");
+            CommonTest.Setup(TestContext.CurrentContext.Test.Name);
+            CommonTest.StartChromeDriver();
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed)
+            {
+                CommonTest.Logout();
+                CommonTest.QuitDriver();
+                CommonTest.Passed(TestContext.CurrentContext.Test.Name);
+            }
+            else
+            {
+                CommonTest.QuitDriver();
+                CommonTest.Failed(TestContext.CurrentContext.Test.Name);
+            }
+        }
 
         [Test] 
         public void Attach1FileFromOnedrive()
         {
-            CommonTest.Setup("Attach1FileFromOnedrive");
-            CommonTest.StartChromeDriver();
-
-            try
-            {
             CommonTest.Login();
-                Log.LogThis("login succesful");
-            }
-            catch (Exception e)
-            {
-                Log.LogThis("login failed");
-                Log.LogThis(e.Message);
-            }
-            
             CommonTest.SwichChat();
-
             CommonTest.Attach(1);
-
-            CommonTest.Logout();
-            CommonTest.QuitDriver();
+            CommonTest.Passed(TestContext.CurrentContext.Test.Name);
         }
 
         [Test] 
         public void Send1Message()
         {
-            CommonTest.StartChromeDriver();
             CommonTest.Login();
             CommonTest.SwichChat();
 
             CommonTest.SendMessage("Lorem ipsum dolor sit amet");
-
-            CommonTest.Logout();
-            CommonTest.QuitDriver();
         }
     }
+
+    [TestFixture]
     public class TeamsFirefoxTest()
     {
-        [Test] 
-        public void Attach2ilesFromOnedrive()
+        [SetUp]
+        public void SetUp()
         {
+            CommonTest.Setup(TestContext.CurrentContext.Test.Name);
             CommonTest.StartFirefoxDriver();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed)
+            {
+                CommonTest.Logout();
+                CommonTest.QuitDriver();
+                CommonTest.Passed(TestContext.CurrentContext.Test.Name);
+            }
+            else
+            {
+                CommonTest.QuitDriver();
+                CommonTest.Failed(TestContext.CurrentContext.Test.Name);
+            }
+        }
+
+        [Test] 
+        public void Attach2FilesFromOnedrive()
+        {
             CommonTest.Login();
             CommonTest.SwichChat();
 
             CommonTest.Attach(2);
-
-            CommonTest.Logout();
-            CommonTest.QuitDriver();
         }
 
         [Test] 
         public void Send3Messages()
         {
-            CommonTest.StartFirefoxDriver();
             CommonTest.Login();
             CommonTest.SwichChat();
 
             CommonTest.SendMessage("Lorem ipsum");
             CommonTest.SendMessage("dolor sit amet");
             CommonTest.SendMessage("consectetur adipiscing elit");
-
-            CommonTest.Logout();
-            CommonTest.QuitDriver();
         }
     }
 }

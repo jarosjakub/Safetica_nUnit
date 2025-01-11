@@ -26,7 +26,10 @@ namespace Safetica_nUnit
         public static string xpath_password = "/html/body/div/form[1]/div/div/div[2]/div[1]/div/div/div/div/div/div[3]/div/div[2]/div/div[3]/div/div[2]/input";
         public static string xpath_login = "//*[@id=\"idSIButton9\"]";
         public static string xpath_stayYes = "/html/body/div/form/div/div/div[2]/div[1]/div/div/div/div/div/div[3]/div/div[2]/div/div[3]/div[2]/div/div/div[2]/input";
-        public static string xpath_chat = "/html/body/div[1]/div/div/div/div[4]/div/div/div[2]/div[1]/div[1]/div/div[1]/div[2]/div/div/div[3]/div[1]/span";
+
+        //chat swap xpaths
+        public static string xpath_chat = "/html/body/div[1]/div/div/div/div[3]/div/div/div[1]/div[2]/div/button";
+        public static string xpath_safeticaQA = "/html/body/div[1]/div/div/div/div[4]/div/div/div[2]/div[1]/div[1]/div/div[1]/div[2]/div/div/div[3]/div[1]/span";
 
         //message xpaths
         public static string xpath_message_input = "/html/body/div[1]/div/div/div/div[7]/div/div/div[3]/div/div[3]/div/div[2]/div/div[2]/div[1]/div";
